@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useTransition } from 'react'
 import { useData } from '../../context/DataContext'
 import { msToReadable, formatNumber, formatPercent } from '../../utils/formatters'
 import SectionHeader from '../ui/SectionHeader'
@@ -34,8 +34,8 @@ function SortableTh({ label, sortKey, currentSort, currentDir, onSort, right }) 
 
 export default function TopTracks() {
   const { processed, viewData, fileName } = useData()
-  const isDemo = fileName === 'my_spotify_data.zip'
-  const [search, setSearch]   = useState('')
+  const isDemo = fileName === 'sample_data.json'
+  const [isPending, startTransition] = useTransition()
   const [sortBy, setSortBy]   = useState('plays')
   const [sortDir, setSortDir] = useState('desc')
   const [limit, setLimit]     = useState(200)
@@ -56,14 +56,6 @@ export default function TopTracks() {
     return limit === 0 ? sorted : sorted.slice(0, limit)
   }, [viewData, sortBy, sortDir, limit])
 
-  const filtered = useMemo(() => {
-    if (!search.trim()) return rows
-    const q = search.toLowerCase()
-    return rows.filter(t =>
-      t.name.toLowerCase().includes(q) || t.artist.toLowerCase().includes(q)
-    )
-  }, [rows, search])
-
   if (!processed || !viewData) return null
 
   return (
@@ -71,18 +63,25 @@ export default function TopTracks() {
       <SectionHeader title="Top Tracks" subtitle="Las canciones que más escuchaste" />
 
       <div className={styles.controls}>
-        <input
-          className={styles.searchInput}
-          placeholder="Buscar track o artista…"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          aria-label="Buscar track o artista"
-          type="search"
-        />
+        {[
+          { key: 'plays',   label: 'Plays'  },
+          { key: 'msTotal', label: 'Tiempo' },
+          { key: 'skips',   label: 'Skips'  },
+        ].map(({ key, label }) => (
+          <button
+            key={key}
+            type="button"
+            className={[styles.sortPill, sortBy === key ? styles.sortPillActive : ''].filter(Boolean).join(' ')}
+            onClick={() => toggleSort(key)}
+          >
+            {label}
+            {sortBy === key && <span className={styles.sortPillArrow}>{sortDir === 'desc' ? '↓' : '↑'}</span>}
+          </button>
+        ))}
         {!isDemo && <select
           className={styles.select}
           value={limit}
-          onChange={e => setLimit(Number(e.target.value))}
+          onChange={e => { const v = Number(e.target.value); startTransition(() => setLimit(v)) }}
           aria-label="Cantidad de tracks a mostrar"
         >
           {LIMIT_OPTIONS.map(opt => (
@@ -90,26 +89,10 @@ export default function TopTracks() {
           ))}
         </select>}
         <span className={styles.countLabel}>
-          {filtered.length}{limit !== 0 && viewData.allTracks.length > limit ? ` de ${formatNumber(viewData.allTracks.length)}` : ''} tracks
+          {rows.length}{limit !== 0 && viewData.allTracks.length > limit ? ` de ${formatNumber(viewData.allTracks.length)}` : ''} tracks
         </span>
-        <div className={styles.mobileSortRow}>
-          {[
-            { key: 'plays',   label: 'Plays'  },
-            { key: 'msTotal', label: 'Tiempo' },
-            { key: 'skips',   label: 'Skips'  },
-          ].map(({ key, label }) => (
-            <button
-              key={key}
-              type="button"
-              className={[styles.sortPill, sortBy === key ? styles.sortPillActive : ''].filter(Boolean).join(' ')}
-              onClick={() => toggleSort(key)}
-            >
-              {label}
-              {sortBy === key && <span className={styles.sortPillArrow}>{sortDir === 'desc' ? '↓' : '↑'}</span>}
-            </button>
-          ))}
-        </div>
       </div>
+      {(isPending || limit === 0) && <p className={styles.slowHint}>Mostrar todos puede tardar unos segundos según la cantidad de datos.</p>}
 
       {/* Desktop table */}
       <div className={styles.tableWrap}>
@@ -126,7 +109,7 @@ export default function TopTracks() {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((t, i) => (
+            {rows.map((t, i) => (
               <tr key={t.uri} className={styles.row}>
                 <td className={styles.td}><span className={styles.rank}>{i + 1}</span></td>
                 <td className={styles.td}><span className={styles.trackName}>{t.name}</span></td>
@@ -145,7 +128,7 @@ export default function TopTracks() {
 
       {/* Mobile card list */}
       <div className={styles.cardList}>
-        {filtered.map((t, i) => (
+        {rows.map((t, i) => (
           <div key={t.uri} className={styles.trackCard}>
             <span className={styles.trackRank}>{i + 1}</span>
             <div className={styles.trackInfo}>

@@ -1,11 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useTransition } from 'react'
 import { X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useData } from '../../context/DataContext'
 import { msToReadable, formatNumber } from '../../utils/formatters'
 import SectionHeader from '../ui/SectionHeader'
-import Card from '../ui/Card'
-import BarChartComponent from '../charts/BarChartComponent'
 import styles from './TopArtists.module.css'
 
 const SORT_OPTIONS = [
@@ -91,7 +89,8 @@ function ArtistDetail({ selected, topTracks, onClose, isMobile }) {
 
 export default function TopArtists() {
   const { processed, viewData, fileName } = useData()
-  const isDemo = fileName === 'my_spotify_data.zip'
+  const isDemo = fileName === 'sample_data.json'
+  const [isPending, startTransition] = useTransition()
   const [selected, setSelected] = useState(null)
   const [sortBy, setSortBy]     = useState('msTotal')
   const [sortDir, setSortDir]   = useState('desc')
@@ -122,77 +121,61 @@ export default function TopArtists() {
 
   if (!processed || !viewData) return null
 
-  const chartData = viewData.topArtistsChart
-
   return (
     <div className={styles.root}>
       <SectionHeader title="Top Artists" subtitle="Los artistas que dominaron tu historial" />
 
-      <div className={styles.layout}>
-        <Card style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-          <p className={styles.chartTitle}>Top 15 por horas</p>
-          <div style={{ flex: 1, minHeight: 320 }}>
-            <BarChartComponent
-              data={chartData}
-              xKey="name"
-              yKey="value"
-              formatter={(v) => `${v}h`}
-              height="100%"
-              horizontal
-            />
-          </div>
-        </Card>
+      <div className={styles.controls}>
+        {SORT_OPTIONS.map(opt => (
+          <button
+            key={opt.key}
+            type="button"
+            className={[styles.sortPill, sortBy === opt.key ? styles.sortPillActive : ''].join(' ')}
+            onClick={() => toggleSort(opt.key)}
+          >
+            {opt.label}
+            {sortBy === opt.key && (
+              <span className={styles.sortPillArrow}>
+                {sortDir === 'desc' ? '▼' : '▲'}
+              </span>
+            )}
+          </button>
+        ))}
+        {!isDemo && (
+          <select
+            className={styles.limitSelect}
+            value={limit}
+            onChange={e => { const v = Number(e.target.value); startTransition(() => setLimit(v)) }}
+            aria-label="Cantidad de artistas a mostrar"
+          >
+            {LIMIT_OPTIONS.map(opt => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+        )}
+        <span className={styles.countLabel}>
+          {artists.length}{limit !== 0 && viewData.allArtists.length > limit ? ` de ${formatNumber(viewData.allArtists.length)}` : ''} artistas
+        </span>
+      </div>
+      {(isPending || limit === 0) && <p className={styles.slowHint}>Mostrar todos puede tardar unos segundos según la cantidad de datos.</p>}
 
-        <div className={styles.listCol}>
-          <p className={styles.chartTitle}>
-            {artists.length}{limit !== 0 && viewData.allArtists.length > limit ? ` de ${formatNumber(viewData.allArtists.length)}` : ''} artistas
-          </p>
-          <div className={styles.controls}>
-            {SORT_OPTIONS.map(opt => (
-              <button
-                key={opt.key}
-                type="button"
-                className={[styles.sortBtn, sortBy === opt.key ? styles.sortBtnActive : ''].join(' ')}
-                onClick={() => toggleSort(opt.key)}
-              >
-                {opt.label}
-                {sortBy === opt.key && (
-                  <span style={{ marginLeft: '0.25rem', fontSize: '0.6rem' }}>
-                    {sortDir === 'desc' ? '▼' : '▲'}
-                  </span>
-                )}
-              </button>
-            ))}
-            {!isDemo && <select
-              className={styles.limitSelect}
-              value={limit}
-              onChange={e => setLimit(Number(e.target.value))}
-              aria-label="Cantidad de artistas a mostrar"
-            >
-              {LIMIT_OPTIONS.map(opt => (
-                <option key={opt.value} value={opt.value}>{opt.label}</option>
-              ))}
-            </select>}
-          </div>
-          <div className={styles.listScroll}>
-            {artists.map((a, i) => (
-              <div
-                key={a.name}
-                className={styles.artistCard}
-                onClick={() => setSelected(a)}
-              >
-                <span className={styles.artistRank}>{i + 1}</span>
-                <span className={styles.artistName}>{a.name}</span>
-                <div className={styles.artistMeta}>
-                  <div>{msToReadable(a.msTotal)}</div>
-                  <div className={styles.artistMetaSub}>
-                    {formatNumber(a.plays)} plays · {a.uniqueTracks} tracks
-                  </div>
-                </div>
+      <div className={styles.listScroll}>
+        {artists.map((a, i) => (
+          <div
+            key={a.name}
+            className={styles.artistCard}
+            onClick={() => setSelected(a)}
+          >
+            <span className={styles.artistRank}>{i + 1}</span>
+            <span className={styles.artistName}>{a.name}</span>
+            <div className={styles.artistMeta}>
+              <div>{msToReadable(a.msTotal)}</div>
+              <div className={styles.artistMetaSub}>
+                {formatNumber(a.plays)} plays · {a.uniqueTracks} tracks
               </div>
-            ))}
+            </div>
           </div>
-        </div>
+        ))}
       </div>
 
       <AnimatePresence>

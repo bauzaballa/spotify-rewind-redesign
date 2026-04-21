@@ -30,10 +30,15 @@
   background: transparent;
   border: 0;
   outline: none;
+  box-shadow: none;
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   color: var(--text-primary);
   min-width: 0;
+}
+
+.input:focus-visible {
+  box-shadow: none;
 }
 
 .input::placeholder {
@@ -56,4 +61,21 @@
 .clear:hover {
   background: var(--bg-card-hover);
   color: var(--text-primary);
+}
+
+.trigger {
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  text-align: left;
+  width: 100%;
+}
+
+.trigger:hover {
+  border-color: var(--border-accent);
+}
+
+.triggerText {
+  flex: 1;
+  font-size: 14px;
+  color: var(--text-muted);
 }

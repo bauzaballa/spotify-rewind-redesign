@@ -10,6 +10,7 @@ import { useData } from '../../context/DataContext'
 import { useSearch } from '../../context/SearchContext'
 import { msToHours, formatNumber } from '../../utils/formatters'
 import SearchInput   from '../search/SearchInput'
+import SearchTrigger from '../search/SearchTrigger'
 import SearchResults from '../search/SearchResults'
 import styles from './Sidebar.module.css'
 
@@ -24,7 +25,7 @@ const NAV_ITEMS = [
   { id: 'habits',     label: 'Habits',     Icon: Brain           },
 ]
 
-function NavContent({ active, onSelect, footerStats, theme, onThemeToggle, isDemo, searching }) {
+function NavContent({ active, onSelect, footerStats, theme, onThemeToggle, isDemo, searching, onSearchTrigger }) {
   return (
     <>
       <div className={styles.brand}>
@@ -33,7 +34,9 @@ function NavContent({ active, onSelect, footerStats, theme, onThemeToggle, isDem
         <div className={styles.brandHandle}>@bauzaballa</div>
       </div>
       <div className={styles.searchWrap}>
-        <SearchInput />
+        {onSearchTrigger
+          ? <SearchTrigger onClick={onSearchTrigger} />
+          : <SearchInput />}
       </div>
       <nav className={`${styles.nav} ${searching ? styles.navHidden : ''}`}>
         {NAV_ITEMS.map(({ id, label, Icon }) => (
@@ -83,8 +86,8 @@ function NavContent({ active, onSelect, footerStats, theme, onThemeToggle, isDem
 
 export default function Sidebar({ active, onSelect, isOpen, onClose, theme, onThemeToggle }) {
   const { processed, fileName } = useData()
-  const { query } = useSearch()
-  const isDemo = fileName === 'my_spotify_data.zip'
+  const { query, openMobileSearch } = useSearch()
+  const isDemo = fileName === 'sample_data.json'
   const searching = query.length >= 2
 
   const footerStats = useMemo(() => {
@@ -94,6 +97,11 @@ export default function Sidebar({ active, onSelect, isOpen, onClose, theme, onTh
       tracks: processed.stats.uniqueTracks,
     }
   }, [processed])
+
+  function handleDrawerSearchTrigger() {
+    onClose()
+    openMobileSearch()
+  }
 
   return (
     <>
@@ -135,6 +143,7 @@ export default function Sidebar({ active, onSelect, isOpen, onClose, theme, onTh
                 onThemeToggle={onThemeToggle}
                 isDemo={isDemo}
                 searching={searching}
+                onSearchTrigger={handleDrawerSearchTrigger}
               />
             </motion.aside>
           </>

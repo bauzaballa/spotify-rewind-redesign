@@ -11,15 +11,6 @@
   padding-right: 0.25rem;
 }
 
-.layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  flex: 1;
-  min-height: 0;
-  align-items: stretch;
-}
-
 .controls {
   display: flex;
   gap: 0.5rem;
@@ -46,6 +37,21 @@
   color: var(--accent);
 }
 
+.slowHint {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  flex-shrink: 0;
+}
+
+.countLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
 .limitSelect {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -56,7 +62,33 @@
   padding: 0.3rem 0.5rem;
   cursor: pointer;
   outline: none;
-  margin-left: auto;
+}
+
+.sortPill {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.sortPill:hover {
+  color: var(--text-primary);
+  border-color: var(--border-accent);
+}
+.sortPillActive {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(221, 161, 94, 0.08);
+}
+.sortPillArrow {
+  font-size: 0.65rem;
 }
 
 .chartTitle {
@@ -68,13 +100,6 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   flex-shrink: 0;
-}
-
-.listCol {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  height: 100%;
 }
 
 .listScroll {
@@ -257,11 +282,11 @@
 }
 
 @media (max-width: 640px) {
-  .layout {
-    grid-template-columns: 1fr;
+  .panel {
+    display: none;
   }
 
-  .panel {
+  .countLabel {
     display: none;
   }
 }

@@ -4,17 +4,11 @@
   align-items: center;
   justify-content: center;
   background-color: var(--bg-main);
-  background-image: radial-gradient(rgba(245,158,11,0.12) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image:
+    radial-gradient(ellipse 70% 65% at 50% 50%, transparent 30%, var(--bg-main) 100%),
+    radial-gradient(rgba(245, 158, 11, 0.18) 1px, transparent 1px);
+  background-size: 100% 100%, 24px 24px;
   position: relative;
-}
-
-.root::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: rgba(12, 12, 12, 0.78);
-  pointer-events: none;
 }
 
 .content {

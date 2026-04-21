@@ -13,6 +13,7 @@ export function SearchProvider({ children }) {
   const { viewData, raw } = useData()
   const [query, setQuery] = useState('')
   const [activeEntity, setActiveEntity] = useState(null)
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false)
   const cacheRef = useRef(new Map())
 
   useEffect(() => {
@@ -20,6 +21,7 @@ export function SearchProvider({ children }) {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setActiveEntity(null)
     setQuery('')
+    setMobileSearchOpen(false)
   }, [raw])
 
   const results = useMemo(() => {
@@ -40,13 +42,19 @@ export function SearchProvider({ children }) {
   const openEntity  = useCallback((entity) => setActiveEntity(entity), [])
   const closeEntity = useCallback(()       => setActiveEntity(null),   [])
   const clearQuery  = useCallback(()       => setQuery(''),            [])
+  const openMobileSearch  = useCallback(() => setMobileSearchOpen(true), [])
+  const closeMobileSearch = useCallback(() => {
+    setMobileSearchOpen(false)
+    setQuery('')
+  }, [])
 
   const value = useMemo(() => ({
     query, setQuery, clearQuery,
     results,
     activeEntity, openEntity, closeEntity,
+    mobileSearchOpen, openMobileSearch, closeMobileSearch,
     cacheRef,
-  }), [query, clearQuery, results, activeEntity, openEntity, closeEntity])
+  }), [query, clearQuery, results, activeEntity, openEntity, closeEntity, mobileSearchOpen, openMobileSearch, closeMobileSearch])
 
   return <SearchContext.Provider value={value}>{children}</SearchContext.Provider>
 }

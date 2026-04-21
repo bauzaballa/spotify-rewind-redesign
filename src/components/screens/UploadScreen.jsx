@@ -1,6 +1,5 @@
 import { useRef, useState, useCallback } from 'react'
 import JSZip from 'jszip'
-import { motion } from 'framer-motion'
 import { UploadCloud } from 'lucide-react'
 import { useData } from '../../context/DataContext'
 import styles from './UploadScreen.module.css'
@@ -70,9 +69,8 @@ function generateSampleData(count = 1000) {
 // Component
 // ---------------------------------------------------------------------------
 export default function UploadScreen() {
-  const { iniciarCarga, cargarArchivos, loading, progress, fileName } = useData()
+  const { iniciarCarga, cargarArchivos, fileName } = useData()
   const [isDragging, setIsDragging] = useState(false)
-  const [localLabel, setLocalLabel] = useState('')
   const inputRef = useRef(null)
 
   const processEntries = useCallback((entries, name) => {
@@ -86,14 +84,10 @@ export default function UploadScreen() {
       f => /Streaming_History_Audio_.*\.json$/i.test(f.name)
     )
 
-    if (audioFiles.length === 0) {
-      setLocalLabel('No se encontraron archivos Streaming_History_Audio_*.json')
-      return
-    }
+    if (audioFiles.length === 0) return
 
     let all = []
     for (const zipFile of audioFiles) {
-      setLocalLabel(`Procesando ${zipFile.name}…`)
       const text = await zipFile.async('text')
       const parsed = JSON.parse(text)
       all = all.concat(parsed)
@@ -145,7 +139,6 @@ export default function UploadScreen() {
   }
 
   async function loadSample() {
-    setLocalLabel('Cargando datos de demostración…')
     try {
       const res = await fetch('/my_spotify_data.zip')
       if (!res.ok) throw new Error('no zip')
@@ -162,7 +155,6 @@ export default function UploadScreen() {
       }
       processEntries(all, 'my_spotify_data.zip')
     } catch {
-      setLocalLabel('Generando datos de muestra…')
       setTimeout(() => {
         const entries = generateSampleData(1000)
         processEntries(entries, 'sample_data.json')
@@ -170,12 +162,13 @@ export default function UploadScreen() {
     }
   }
 
-  const label = fileName ? `Cargando ${fileName}…` : localLabel
-
   return (
     <div className={styles.root}>
       <div className={styles.content}>
-        <h1 className={styles.logo}>REWIND</h1>
+        <div className={styles.logoBlock}>
+          <h1 className={styles.logo}>REWIND</h1>
+          <span className={styles.logoHandle}>× @bauzaballa</span>
+        </div>
         <p className={styles.tagline}>Tu historial de Spotify, al desnudo</p>
 
         <div
@@ -205,21 +198,6 @@ export default function UploadScreen() {
           </span>
         </div>
 
-        {(loading || label) && (
-          <div className={styles.progressWrapper}>
-            {label && <p className={styles.progressLabel}>{label}</p>}
-            {loading && (
-              <div className={styles.progressTrack}>
-                <motion.div
-                  className={styles.progressBar}
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: progress / 100 }}
-                  transition={{ ease: 'easeOut', duration: 0.4 }}
-                />
-              </div>
-            )}
-          </div>
-        )}
 
         <button className={styles.sampleBtn} onClick={loadSample} type="button">
           Ver demo con datos reales

@@ -24,12 +24,12 @@ export default function MiniTimeline({ title = 'Reproducciones por mes', byMonth
       <p className={styles.title}>{title}</p>
       <div className={styles.wrap}>
         <ResponsiveContainer>
-          <LineChart data={data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+          <LineChart data={data} margin={{ top: 4, right: 8, left: -16, bottom: 0 }}>
             <CartesianGrid strokeDasharray="2 4" stroke="var(--border)" />
             <XAxis dataKey="month" tick={{ fontSize: 11, fill: 'var(--text-muted)' }} />
-            <YAxis tick={{ fontSize: 11, fill: 'var(--text-muted)' }} />
+            <YAxis width={40} tick={{ fontSize: 11, fill: 'var(--text-muted)' }} />
             <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'var(--border-accent)' }} />
-            <Line type="monotone" dataKey="plays" stroke="var(--sunlit-clay)" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="plays" stroke="var(--accent)" strokeWidth={2} dot={false} />
           </LineChart>
         </ResponsiveContainer>
       </div>

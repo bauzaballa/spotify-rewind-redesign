@@ -42,9 +42,8 @@
   font-size: 14px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .panel {
-    left: 0;
-    width: 100vw;
+    display: none;
   }
 }

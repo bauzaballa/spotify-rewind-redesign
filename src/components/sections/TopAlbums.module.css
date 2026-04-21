@@ -32,6 +32,14 @@
   outline: none;
 }
 
+.slowHint {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  flex-shrink: 0;
+}
+
 .countLabel {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.75rem;
@@ -189,13 +197,6 @@
   margin-top: 0.1rem;
 }
 
-.mobileSortRow {
-  display: none;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  width: 100%;
-}
-
 .sortPill {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.75rem;
@@ -235,7 +236,15 @@
     display: flex;
   }
 
-  .mobileSortRow {
-    display: flex;
+  .countLabel {
+    display: none;
   }
+}
+
+.countLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  align-self: center;
+  margin-left: auto;
 }

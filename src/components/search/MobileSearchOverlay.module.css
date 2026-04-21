@@ -1,0 +1,131 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  background: var(--bg-main);
+  display: flex;
+  flex-direction: column;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 12px 10px;
+  background: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border);
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 8px;
+  flex-shrink: 0;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.back:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.inputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: 36px;
+  padding: 0 8px 0 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.inputWrap:focus-within {
+  border-color: var(--border-accent);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.inputIcon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.input {
+  flex: 1;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-primary);
+  min-width: 0;
+}
+
+.input:focus-visible {
+  box-shadow: none;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.clear:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 12px 24px;
+}
+
+.header {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 8px 6px 6px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 1025px) {
+  .overlay { display: none; }
+}

@@ -13,7 +13,6 @@
   grid-auto-rows: 14px;
   gap: 2px;
   width: 100%;
-  max-width: 520px;
 }
 
 .row {
@@ -31,6 +30,18 @@
 .cell {
   border-radius: 2px;
   position: relative;
+}
+
+.hourRow {
+  display: contents;
+}
+
+.hourLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  color: var(--text-muted);
+  text-align: left;
+  padding-top: 2px;
 }
 
 .cell:hover::after {

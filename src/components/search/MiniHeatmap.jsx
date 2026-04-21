@@ -1,10 +1,11 @@
 import styles from './MiniHeatmap.module.css'
 
 const DOW_LABELS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']
+const HOUR_LABELS = Array.from({ length: 24 }, (_, i) => (i % 6 === 0 ? `${i}h` : ''))
 
 function interpolateColor(t) {
   const pct = Math.round(t * 100)
-  return `color-mix(in srgb, var(--bg-card) ${100 - pct}%, var(--copperwood) ${pct}%)`
+  return `color-mix(in srgb, var(--bg-card) ${100 - pct}%, var(--accent-hover) ${pct}%)`
 }
 
 export default function MiniHeatmap({ title = 'Actividad por hora y día', heatmap }) {
@@ -28,6 +29,12 @@ export default function MiniHeatmap({ title = 'Actividad por hora y día', heatm
             ))}
           </div>
         ))}
+        <div className={styles.hourRow}>
+          <div />
+          {HOUR_LABELS.map((label, h) => (
+            <div key={`h-${h}`} className={styles.hourLabel}>{label}</div>
+          ))}
+        </div>
       </div>
     </div>
   )

@@ -32,16 +32,12 @@
   outline: none;
 }
 
-.searchInput {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-primary);
+.slowHint {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.8rem;
-  padding: 0.4rem 0.75rem;
-  outline: none;
-  width: 220px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  flex-shrink: 0;
 }
 
 .countLabel {
@@ -229,13 +225,6 @@
   margin-top: 0.1rem;
 }
 
-.mobileSortRow {
-  display: none;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  width: 100%;
-}
-
 .sortPill {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.75rem;
@@ -267,11 +256,6 @@
 }
 
 @media (max-width: 640px) {
-  .searchInput {
-    width: 100%;
-    flex: 1;
-  }
-
   .tableWrap {
     display: none;
   }
@@ -280,7 +264,7 @@
     display: flex;
   }
 
-  .mobileSortRow {
-    display: flex;
+  .countLabel {
+    display: none;
   }
 }

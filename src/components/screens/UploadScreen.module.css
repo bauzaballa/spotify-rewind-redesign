@@ -7,20 +7,10 @@
   gap: 2rem;
   padding: 2rem;
   background-color: var(--bg-main);
-  background-image: radial-gradient(rgba(245,158,11,0.12) 1px, transparent 1px);
-  background-size: 28px 28px;
-  background-position: 0 0;
-  opacity: 0.97;
-}
-
-/* Dim the dot pattern so it stays subtle */
-.root::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: rgba(12, 12, 12, 0.72);
-  pointer-events: none;
-  z-index: 0;
+  background-image:
+    radial-gradient(ellipse 70% 65% at 50% 50%, transparent 30%, var(--bg-main) 100%),
+    radial-gradient(rgba(245, 158, 11, 0.18) 1px, transparent 1px);
+  background-size: 100% 100%, 24px 24px;
 }
 
 .content {
@@ -34,6 +24,13 @@
   max-width: 520px;
 }
 
+.logoBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .logo {
   font-family: 'Fraunces', serif;
   font-weight: 700;
@@ -41,6 +38,14 @@
   letter-spacing: 0.12em;
   color: var(--text-primary);
   line-height: 1;
+}
+
+.logoHandle {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
 }
 
 .tagline {

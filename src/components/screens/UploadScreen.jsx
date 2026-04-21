@@ -140,7 +140,7 @@ export default function UploadScreen() {
 
   async function loadSample() {
     try {
-      const res = await fetch('/my_spotify_data.zip')
+      const res = await fetch('/sample_data.zip')
       if (!res.ok) throw new Error('no zip')
       const blob = await res.blob()
       const zip = await JSZip.loadAsync(blob)
@@ -153,7 +153,7 @@ export default function UploadScreen() {
         const text = await zipFile.async('text')
         all = all.concat(JSON.parse(text))
       }
-      processEntries(all, 'my_spotify_data.zip')
+      processEntries(all, 'sample_data.json')
     } catch {
       setTimeout(() => {
         const entries = generateSampleData(1000)

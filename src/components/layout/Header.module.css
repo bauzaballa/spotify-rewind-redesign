@@ -1,0 +1,183 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2.5rem;
+  background: var(--bg-main);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  gap: 1rem;
+  min-height: 52px;
+  flex-shrink: 0;
+}
+
+.headerHidden {
+  display: none;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Hamburger — hidden on desktop */
+.menuBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  padding: 0.25rem;
+  border-radius: 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.menuBtn:hover {
+  color: var(--text-primary);
+  background: rgba(245, 158, 11, 0.08);
+}
+
+/* Section name — hidden on desktop */
+.sectionName {
+  display: none;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.fileInfo {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 1;
+  justify-content: center;
+}
+
+.fileNameWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 4px;
+  padding: 0.15rem 0.25rem 0.15rem 0.4rem;
+  transition: background 150ms ease;
+}
+
+.fileNameWrapper:hover {
+  background: rgba(96, 108, 56, 0.15);
+}
+
+.fileNameWrapper:hover .fileName {
+  color: var(--text-primary);
+}
+
+.fileNameWrapper:hover .deleteBtn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fileName {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.deleteBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 3px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease, color 150ms ease;
+  flex-shrink: 0;
+}
+
+.deleteBtn:hover {
+  color: var(--copperwood);
+}
+
+.fileNameInput {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-accent);
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+  outline: none;
+  max-width: 320px;
+  min-width: 120px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    padding: 0.75rem 1rem;
+  }
+
+  .menuBtn {
+    display: flex;
+  }
+
+  .sectionName {
+    display: block;
+  }
+
+  .fileInfo {
+    justify-content: flex-start;
+  }
+
+  .fileName {
+    max-width: 180px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: 0.5rem 0.75rem;
+    min-height: unset;
+    border-bottom: none;
+    background: linear-gradient(to bottom, var(--bg-main) 30%, transparent);
+    pointer-events: none;
+    position: sticky;
+  }
+
+  .headerHidden {
+    display: flex;
+  }
+
+  .left {
+    pointer-events: auto;
+  }
+
+  .sectionName {
+    display: none;
+  }
+
+  .fileInfo {
+    display: none;
+  }
+}

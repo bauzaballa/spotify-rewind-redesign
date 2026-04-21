@@ -1,0 +1,28 @@
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: background 200ms ease, box-shadow 200ms ease;
+}
+
+.card:hover {
+  background: var(--bg-card-hover);
+  box-shadow: 0 4px 24px rgba(96, 108, 56, 0.15);
+}
+
+/* Variant: highlight — accented border */
+.highlight {
+  border-color: var(--border-accent);
+}
+
+/* Variant: stat — compact, centered */
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  gap: 0.25rem;
+}

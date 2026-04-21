@@ -1,0 +1,35 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Agent / tooling directories
+.claude/
+.superpowers/
+docs/superpowers/
+
+# Personal Spotify exports — never commit raw listening history.
+# The curated anonymized sample lives at public/sample_data.zip.
+my_spotify_data.zip
+Streaming_History*.zip
+spotify_extended_streaming_history*.zip

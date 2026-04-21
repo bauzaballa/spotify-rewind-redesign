@@ -1,0 +1,26 @@
+.root {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.equalizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 32px;
+}
+
+.bar {
+  width: 4px;
+  height: 32px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform-origin: bottom;
+  opacity: 0.7;
+}
+
+.bar:nth-child(2) { background: var(--sunlit-clay); }
+.bar:nth-child(4) { background: rgba(245,158,11,0.6); }

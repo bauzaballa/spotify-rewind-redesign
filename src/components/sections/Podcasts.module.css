@@ -1,0 +1,223 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.scrollArea {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  flex: 1;
+  min-height: 0;
+  align-items: start;
+}
+
+.listCol {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: 0.75rem;
+}
+
+.controls {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.select {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.countLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.chartTitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tableWrap {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+}
+
+/* rank | name | episodes | plays | time */
+.table th:nth-child(1) { width: 36px; }
+.table th:nth-child(3) { width: 90px; }
+.table th:nth-child(4) { width: 64px; }
+.table th:nth-child(5) { width: 80px; }
+
+.th {
+  position: sticky;
+  top: 0;
+  padding: 0.7rem 1rem;
+  text-align: left;
+  color: var(--text-muted);
+  font-weight: 500;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.75rem;
+  user-select: none;
+  z-index: 1;
+}
+
+.thSortable { cursor: pointer; }
+.thActive   { color: var(--accent); }
+.thRight    { text-align: right; }
+
+.td {
+  padding: 0.65rem 1rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tdRight   { text-align: right; color: var(--text-secondary); }
+
+.row { transition: background 150ms ease; }
+.row:hover { background: var(--bg-card-hover); }
+.rank      { color: var(--text-muted); font-variant-numeric: tabular-nums; min-width: 2rem; display: inline-block; }
+.showName  { font-weight: 500; }
+.sortArrow { margin-left: 0.3rem; font-size: 0.6rem; opacity: 0.8; }
+
+.emptyWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 3rem;
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+}
+
+/* ── Mobile card list ────────────────────────────────── */
+.cardList {
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.showCard {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 150ms ease;
+}
+
+.showCard:last-child {
+  border-bottom: none;
+}
+
+.showCard:hover,
+.showCard:active {
+  background: var(--bg-card-hover);
+}
+
+.showRank {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  min-width: 1.5rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.showInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.showNameMobile {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.showMeta {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.showTime {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.showStats {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
+
+@media (max-width: 640px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .tableWrap {
+    display: none;
+  }
+
+  .cardList {
+    display: flex;
+  }
+}

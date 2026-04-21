@@ -1,0 +1,104 @@
+.root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-main);
+  background-image: radial-gradient(rgba(245,158,11,0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+  position: relative;
+}
+
+.root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 12, 12, 0.78);
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem;
+}
+
+.logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+/* Equalizer bars container */
+.equalizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 64px;
+}
+
+.bar {
+  width: 6px;
+  height: 64px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* Progress number */
+.progressNum {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 3.5rem;
+  color: var(--text-primary);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* Step description */
+.stepLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-align: center;
+  min-height: 1.4em;
+}
+
+/* File name */
+.fileName {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: -0.75rem;
+}
+
+/* Progress bar */
+.trackWrap {
+  width: 100%;
+  height: 3px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.trackFill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(245,158,11,0.6), var(--accent));
+  border-radius: 999px;
+  transform-origin: left;
+}

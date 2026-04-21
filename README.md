@@ -1,90 +1,87 @@
-# Spotify Rewind
+<div align="center">
 
-Visualize your complete Spotify listening history — no login, no backend, no data leaving your browser.
+# REWIND
 
-🔗 **[Live demo](https://spotify-rewind-pearl.vercel.app)**
+**Tu historial de Spotify, al desnudo.**
 
----
+Visualiza anos de escuchas sin logins, sin servidores, sin que tus datos salgan del navegador.
 
-## What is this?
-
-Spotify Rewind is a client-side app that processes your personal Spotify data export and turns it into a full listening dashboard. It runs entirely in the browser — your data is never uploaded anywhere.
-
-## How to use it
-
-1. **Download your data** from Spotify: go to *Settings → Privacy → Download your data* and request your **Extended streaming history**. Spotify will email you a `.zip` file within a few days.
-2. **Drop the zip** onto the upload screen — or select individual JSON files. The app reads everything using JSZip, directly in the browser.
-3. **Explore your stats** across 8 sections in the dashboard.
-
-> Don't have your export yet? Hit **"Load sample data"** to try the app right away.
+[**Ver demo en vivo →**](https://spotify-rewind-pearl.vercel.app)
 
 ---
 
-## Features
+</div>
 
-### Overview
-Total hours listened, unique tracks, artists and albums, skip rate, and your all-time top track and artist.
+## Como funciona
 
-### Top Tracks / Artists / Albums
-Ranked lists with play counts, total listening time, and skip rates. Plays under 30 seconds are excluded from all calculations.
+Spotify guarda un historial extendido de todo lo que escuchaste. Rewind lo lee directamente en tu navegador y lo convierte en un dashboard completo. Cero backend. Cero subida de datos.
 
-### Podcasts
-Breakdown by show with episode counts and listening time.
+### 1. Descarga tu historial de Spotify
 
-### Platforms
-Which devices you actually used — Android, iOS, macOS, Windows, Web Player — and how much time on each.
+1. Abre [**Spotify** → Configuracion → Privacidad y datos](https://www.spotify.com/account/privacy/)
+2. Buscá la seccion **"Descarga tus datos"**
+3. Selecciona **"Historial extendido de reproduccion"** (no el basico - ese solo tiene 1 ano)
+4. Hace click en **Solicitar datos**
+5. Spotify te manda un email con un `.zip` en los proximos dias (puede tardar hasta 30 dias)
 
-### Time Analysis
-Peak listening hour, favorite day of the week, monthly listening trends (last 24 months), and a daily activity heatmap filterable by year.
+> **Alternativa inmediata:** en la pantalla de inicio hay un boton **"Ver demo con datos reales"** para explorar el dashboard sin necesidad de tu propio archivo.
 
-### Habits
-Shuffle rate, skip rate, offline listening rate, track completion rate, and a per-artist skip ranking.
+### 2. Subir el archivo
+
+Arrastra el `.zip` que te mando Spotify directo a la pantalla de inicio, o hace click para seleccionarlo. El app tambien acepta los archivos `.json` individuales si los querés subir por separado.
+
+### 3. Explorar
+
+El dashboard se arma instantaneamente en el navegador. No se sube nada a ningun servidor.
 
 ---
 
-## Tech stack
+## Que vas a encontrar
 
-| | |
+| Seccion | Que muestra |
 |---|---|
-| Framework | React 19 + Vite 8 |
-| Charts | Recharts |
-| Animations | Framer Motion |
-| File parsing | JSZip |
-| Styling | CSS Modules + custom properties |
-| Deploy | Vercel (static) |
+| **Overview** | Horas totales, tracks y artistas unicos, ratio de skips, mejor track y artista de todos los tiempos |
+| **Top Tracks** | Ranking por plays o tiempo escuchado, con porcentaje de skip por cancion |
+| **Top Artists** | Ranking con desglose de tracks y tiempo, detalle por artista con sus 5 canciones mas escuchadas |
+| **Top Albums** | Ranking por plays o tiempo, con cantidad de tracks escuchados por album |
+| **Podcasts** | Programas seguidos, episodios y tiempo total por show |
+| **Plataformas** | Desde que dispositivos escuchaste mas: Android, iOS, Mac, Windows, Web Player |
+| **Analisis temporal** | Hora pico, dia preferido, tendencia mensual (ultimos 24 meses), heatmap diario filtrable por ano |
+| **Habitos** | Shuffle, skip rate, reproduccion offline, completion rate, y ranking de artistas mas skipeados |
 
-**Notable implementation details:**
-- Chunked async processing keeps the UI responsive on histories with tens of thousands of entries
-- All derived data uses `useMemo` — no `useEffect` for data derivation
-- Framer Motion `AnimatePresence` drives screen transitions (upload → loader → dashboard) and per-section fade+slide animations
-- Zero backend — deployable as a plain static site
+Ademas, la **busqueda global** (`Ctrl+K`) te permite buscar cualquier cancion, artista o album y ver sus estadisticas detalladas con timeline y heatmap de actividad propios.
 
 ---
 
-## Privacy
+## Privacidad
 
-Your data never leaves your browser. The app has no server, no analytics, and makes no network requests after the initial page load. Everything is processed locally.
+Tu archivo de Spotify **nunca sale del navegador**. No hay servidor, no hay base de datos, no hay analytics, no se hace ninguna solicitud de red despues de cargar la pagina. Todo el procesamiento es local.
 
 ---
 
-## Running locally
+## Stack
+
+- **React 19 + Vite** - framework y build
+- **Recharts** - graficos
+- **Framer Motion** - animaciones y transiciones
+- **JSZip** - lectura del `.zip` en el navegador
+- **CSS Modules** - estilos con variables personalizadas por componente
+
+---
+
+## Correr localmente
 
 ```bash
-git clone https://github.com/bauzaballa/spotify-rewind.git
-cd spotify-rewind
+git clone https://github.com/bauzaballa/spotify-rewind-redesign.git
+cd spotify-rewind-redesign
 npm install
 npm run dev
 ```
 
 ---
 
-## Roadmap
+<div align="center">
 
-- [ ] Export stats as image or PDF
-- [ ] Year-over-year comparison view
-- [ ] Search within your history
-- [ ] Dark/light theme toggle
+Hecho por [Bautista Zaballa](https://github.com/bauzaballa)
 
----
-
-Made by [Bautista Zaballa](https://github.com/bauzaballa)
+</div>

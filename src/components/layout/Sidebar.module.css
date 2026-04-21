@@ -46,6 +46,10 @@
   margin-top: 0.4rem;
 }
 
+.searchWrap {
+  padding: 12px 16px 8px;
+}
+
 .nav {
   flex: 1;
   display: flex;

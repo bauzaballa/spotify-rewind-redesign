@@ -1,6 +1,8 @@
 import { useState } from 'react'
+// eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion'
 import { useData } from './context/DataContext'
+import { SearchProvider } from './context/SearchContext'
 import { useTheme } from './hooks/useTheme'
 import UploadScreen from './components/screens/UploadScreen'
 import LoaderScreen from './components/screens/LoaderScreen'
@@ -49,51 +51,53 @@ export default function App() {
   }
 
   return (
-    <AnimatePresence mode="wait">
-      {!loading && !processed && (
-        <motion.div key="upload" {...fadeSlide}>
-          <UploadScreen />
-        </motion.div>
-      )}
+    <SearchProvider>
+      <AnimatePresence mode="wait">
+        {!loading && !processed && (
+          <motion.div key="upload" {...fadeSlide}>
+            <UploadScreen />
+          </motion.div>
+        )}
 
-      {loading && !processed && (
-        <motion.div key="loader" {...fadeSlide}>
-          <LoaderScreen />
-        </motion.div>
-      )}
+        {loading && !processed && (
+          <motion.div key="loader" {...fadeSlide}>
+            <LoaderScreen />
+          </motion.div>
+        )}
 
-      {!!processed && (
-        <motion.div key="app" className={styles.layout} {...fadeSlide}>
-          <Sidebar
-            active={activeSection}
-            onSelect={handleSelect}
-            isOpen={drawerOpen}
-            onClose={() => setDrawerOpen(false)}
-            theme={theme}
-            onThemeToggle={toggleTheme}
-          />
-          <div className={styles.rightCol}>
-            <Header
-              sectionName={section?.label ?? ''}
-              onMenuOpen={() => setDrawerOpen(true)}
+        {!!processed && (
+          <motion.div key="app" className={styles.layout} {...fadeSlide}>
+            <Sidebar
+              active={activeSection}
+              onSelect={handleSelect}
+              isOpen={drawerOpen}
+              onClose={() => setDrawerOpen(false)}
+              theme={theme}
+              onThemeToggle={toggleTheme}
             />
-            <main className={styles.main}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeSection}
-                  style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.2, ease: 'easeOut' }}
-                >
-                  {SectionComponent && <SectionComponent />}
-                </motion.div>
-              </AnimatePresence>
-            </main>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+            <div className={styles.rightCol}>
+              <Header
+                sectionName={section?.label ?? ''}
+                onMenuOpen={() => setDrawerOpen(true)}
+              />
+              <main className={styles.main}>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeSection}
+                    style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                  >
+                    {SectionComponent && <SectionComponent />}
+                  </motion.div>
+                </AnimatePresence>
+              </main>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </SearchProvider>
   )
 }

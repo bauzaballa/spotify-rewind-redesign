@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+// eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   LayoutDashboard, Music, Mic2, Disc3,
@@ -7,6 +8,8 @@ import {
 } from 'lucide-react'
 import { useData } from '../../context/DataContext'
 import { msToHours, formatNumber } from '../../utils/formatters'
+import SearchInput   from '../search/SearchInput'
+import SearchResults from '../search/SearchResults'
 import styles from './Sidebar.module.css'
 
 const NAV_ITEMS = [
@@ -27,6 +30,9 @@ function NavContent({ active, onSelect, footerStats, theme, onThemeToggle, isDem
         <span className={styles.brandName}>REWIND</span>
         <span className={styles.brandSep}> ×</span>
         <div className={styles.brandHandle}>@bauzaballa</div>
+      </div>
+      <div className={styles.searchWrap}>
+        <SearchInput />
       </div>
       <nav className={styles.nav}>
         {NAV_ITEMS.map(({ id, label, Icon }) => (
@@ -129,6 +135,8 @@ export default function Sidebar({ active, onSelect, isOpen, onClose, theme, onTh
           </>
         )}
       </AnimatePresence>
+
+      <SearchResults />
     </>
   )
 }

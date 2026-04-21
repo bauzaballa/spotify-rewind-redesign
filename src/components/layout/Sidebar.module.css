@@ -50,6 +50,12 @@
   padding: 12px 16px 8px;
 }
 
+@media (max-width: 768px) {
+  .navHidden {
+    display: none;
+  }
+}
+
 .nav {
   flex: 1;
   display: flex;

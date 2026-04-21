@@ -7,6 +7,7 @@ import {
   Sun, Moon,
 } from 'lucide-react'
 import { useData } from '../../context/DataContext'
+import { useSearch } from '../../context/SearchContext'
 import { msToHours, formatNumber } from '../../utils/formatters'
 import SearchInput   from '../search/SearchInput'
 import SearchResults from '../search/SearchResults'
@@ -23,7 +24,7 @@ const NAV_ITEMS = [
   { id: 'habits',     label: 'Habits',     Icon: Brain           },
 ]
 
-function NavContent({ active, onSelect, footerStats, theme, onThemeToggle, isDemo }) {
+function NavContent({ active, onSelect, footerStats, theme, onThemeToggle, isDemo, searching }) {
   return (
     <>
       <div className={styles.brand}>
@@ -34,7 +35,7 @@ function NavContent({ active, onSelect, footerStats, theme, onThemeToggle, isDem
       <div className={styles.searchWrap}>
         <SearchInput />
       </div>
-      <nav className={styles.nav}>
+      <nav className={`${styles.nav} ${searching ? styles.navHidden : ''}`}>
         {NAV_ITEMS.map(({ id, label, Icon }) => (
           <button
             key={id}
@@ -82,7 +83,9 @@ function NavContent({ active, onSelect, footerStats, theme, onThemeToggle, isDem
 
 export default function Sidebar({ active, onSelect, isOpen, onClose, theme, onThemeToggle }) {
   const { processed, fileName } = useData()
+  const { query } = useSearch()
   const isDemo = fileName === 'my_spotify_data.zip'
+  const searching = query.length >= 2
 
   const footerStats = useMemo(() => {
     if (!processed) return null
@@ -102,6 +105,7 @@ export default function Sidebar({ active, onSelect, isOpen, onClose, theme, onTh
           theme={theme}
           onThemeToggle={onThemeToggle}
           isDemo={isDemo}
+          searching={searching}
         />
       </aside>
 
@@ -130,6 +134,7 @@ export default function Sidebar({ active, onSelect, isOpen, onClose, theme, onTh
                 theme={theme}
                 onThemeToggle={onThemeToggle}
                 isDemo={isDemo}
+                searching={searching}
               />
             </motion.aside>
           </>

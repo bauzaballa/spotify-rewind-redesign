@@ -1,4 +1,5 @@
 import { normalizePlatform } from './formatters'
+import { buildSearchIndex } from './searchIndex'
 
 const DOW_NAMES = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
@@ -190,6 +191,9 @@ export function deriveViewData(processed) {
       value: Math.round(s.msTotal / 3_600_000 * 10) / 10,
     }))
 
+  // ── Search index ─────────────────────────────────────────────
+  const searchIndex = buildSearchIndex(processed)
+
   return {
     yearData,
     monthData,
@@ -209,5 +213,6 @@ export function deriveViewData(processed) {
     mostSkipped,
     allShows,
     topShowsChart,
+    searchIndex,
   }
 }

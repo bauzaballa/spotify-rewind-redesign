@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useData } from './context/DataContext'
 import { SearchProvider } from './context/SearchContext'
+import DetailModal from './components/search/DetailModal'
 import { useTheme } from './hooks/useTheme'
 import UploadScreen from './components/screens/UploadScreen'
 import LoaderScreen from './components/screens/LoaderScreen'
@@ -98,6 +99,7 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      <DetailModal />
     </SearchProvider>
   )
 }

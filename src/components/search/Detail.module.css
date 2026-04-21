@@ -1,0 +1,151 @@
+.header {
+  margin-bottom: 16px;
+}
+
+.headerType {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.headerTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  margin: 4px 0 2px;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.headerSub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.statGrid4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.statGrid5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 540px) {
+  .statGrid4,
+  .statGrid5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.tile {
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.tileLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.tileValue {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.meta {
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin: 0 0 8px;
+}
+
+.rankedList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rankedRow {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.rankedIndex {
+  color: var(--text-muted);
+}
+
+.rankedName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rankedMeta {
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.platformsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.platformsRow {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.platformsMeta {
+  color: var(--text-secondary);
+}
+
+.empty {
+  padding: 32px 0;
+  text-align: center;
+  color: var(--text-secondary);
+  font-family: 'DM Sans', sans-serif;
+}

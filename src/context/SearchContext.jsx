@@ -19,7 +19,6 @@ export function SearchProvider({ children }) {
     cacheRef.current.clear()
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setActiveEntity(null)
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setQuery('')
   }, [raw])
 
